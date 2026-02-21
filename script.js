@@ -90,16 +90,22 @@ function crearGaleria() {
       mensaje.className = "mensaje-click";
       mensaje.textContent = textoMensaje;
 
-      img.addEventListener("click", (event) => {
-        event.preventDefault();
-        const estabaAbierto = cuadro.classList.contains("mostrar-mensaje");
+      const mostrarMensaje = () => cuadro.classList.add("mostrar-mensaje");
+      const ocultarMensaje = () => cuadro.classList.remove("mostrar-mensaje");
 
-        document
-          .querySelectorAll(".cuadro.mostrar-mensaje")
-          .forEach((item) => item.classList.remove("mostrar-mensaje"));
+      img.addEventListener("pointerdown", (event) => {
+        mostrarMensaje();
+        if (typeof img.setPointerCapture === "function") {
+          img.setPointerCapture(event.pointerId);
+        }
+      });
 
-        if (!estabaAbierto) {
-          cuadro.classList.add("mostrar-mensaje");
+      img.addEventListener("pointerup", ocultarMensaje);
+      img.addEventListener("pointercancel", ocultarMensaje);
+      img.addEventListener("lostpointercapture", ocultarMensaje);
+      img.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "mouse") {
+          ocultarMensaje();
         }
       });
     }
