@@ -34,6 +34,36 @@ const imagenes = [
 ];
 
 const carpetaImagenes = "drive-download-20260221T183607Z-1-001/";
+const mensajesPorImagen = {
+  "20251007_171014.jpg": "IMPATRQ",
+  "20251025_234013.jpg": "Top juntadas",
+  "20251121_201820.jpg": "NOVIOOOOOOOOOOOOOOOOOOOOOOOOOS",
+  "20251121_202114.jpg": "NOVIOOOOOOOOOOOOOOOOOOOOOOOOOS",
+  "20260119_112057.jpg": "ZZZZZZZZZZZ",
+  "20260121_213956.jpg": "Te tengo que enseñar a tocar",
+  "20260202_022327.jpg": "VIAJE A SAN BERNAAAAARDOOOOOOOOO",
+  "20260205_185817.jpg": "lluvia AYUDA",
+  "20260205_234028.jpg": "QUEEEEE que lindos",
+  "20260205_234041.jpg": "Las olas y el viento sucundum sucundum",
+  "20260216_182005.jpg": "QUE LINDOOOOOOOOOOOOOOOOOOS",
+  "20260217_145215.jpg": "Que lindo dia amooooor",
+  "IMG-20251114-WA0048.jpg": "PLEPER ENERGIA BAJO TUS PIES",
+  "IMG-20251115-WA0112.jpg": "JAJAJAJJAJA QUE DURO QUE ESTA LOPA",
+  "IMG-20251115-WA0139.jpg": "Que lindos nos vemos juntos",
+  "IMG-20251214-WA0001.jpg": "JAJAJAJAJAJAJAJAJAJAJAJAJAJAJ PREDICT",
+  "IMG-20251214-WA0067.jpg": "VAAAAAMOOOOOOOOOOOOOS",
+  "IMG-20260116-WA0029.jpg": "Dia de cine, top cosas",
+  "IMG-20260117-WA0017.jpeg": "QUE LINDA FOTO",
+  "IMG-20260118-WA0008.jpg": "Amor porque te multiiplicaste en el cielo",
+  "IMG-20260119-WA0008.jpg": "top spots",
+  "IMG-20260129-WA0077.jpg": "pobrecita barbarita",
+  "IMG-20260206-WA0044.jpeg": "AYUDA ME QUEME AAAAAAAAAAAAAAAAAAAAAA",
+  "IMG-20260208-WA0011.jpeg": "que rica milanesa ñam ñam",
+  "IMG-20260214-WA0067.jpeg": "EL 14 DE FEBRERO SIIIIIIIII",
+  "IMG-20260216-WA0058.jpeg": "Casa capital",
+  "IMG-20260219-WA0040.jpg": "Que linda pareja que son",
+  "IMG-20260221-WA0029.jpg": "JAJASJASJASJSAJJSAJASJSAJSAJSA"
+};
 
 const btnAbrir = document.getElementById("btnAbrir");
 const pantallaInicio = document.getElementById("inicio");
@@ -53,7 +83,26 @@ function crearGaleria() {
     img.loading = "lazy";
     img.onerror = () => cuadro.remove();
 
+    let mensaje = null;
+    const textoMensaje = mensajesPorImagen[nombreImagen];
+    if (textoMensaje) {
+      mensaje = document.createElement("figcaption");
+      mensaje.className = "mensaje-click";
+      mensaje.textContent = textoMensaje;
+
+      const mostrarMensaje = () => cuadro.classList.add("mostrar-mensaje");
+      const ocultarMensaje = () => cuadro.classList.remove("mostrar-mensaje");
+
+      img.addEventListener("pointerdown", mostrarMensaje);
+      img.addEventListener("pointerup", ocultarMensaje);
+      img.addEventListener("pointercancel", ocultarMensaje);
+      img.addEventListener("pointerleave", ocultarMensaje);
+    }
+
     cuadro.appendChild(img);
+    if (mensaje) {
+      cuadro.appendChild(mensaje);
+    }
     museo.appendChild(cuadro);
   });
 }
