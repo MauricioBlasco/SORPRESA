@@ -90,13 +90,18 @@ function crearGaleria() {
       mensaje.className = "mensaje-click";
       mensaje.textContent = textoMensaje;
 
-      const mostrarMensaje = () => cuadro.classList.add("mostrar-mensaje");
-      const ocultarMensaje = () => cuadro.classList.remove("mostrar-mensaje");
+      img.addEventListener("click", (event) => {
+        event.preventDefault();
+        const estabaAbierto = cuadro.classList.contains("mostrar-mensaje");
 
-      img.addEventListener("pointerdown", mostrarMensaje);
-      img.addEventListener("pointerup", ocultarMensaje);
-      img.addEventListener("pointercancel", ocultarMensaje);
-      img.addEventListener("pointerleave", ocultarMensaje);
+        document
+          .querySelectorAll(".cuadro.mostrar-mensaje")
+          .forEach((item) => item.classList.remove("mostrar-mensaje"));
+
+        if (!estabaAbierto) {
+          cuadro.classList.add("mostrar-mensaje");
+        }
+      });
     }
 
     cuadro.appendChild(img);
